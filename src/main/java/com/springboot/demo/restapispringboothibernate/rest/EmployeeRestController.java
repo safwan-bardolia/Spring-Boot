@@ -56,6 +56,10 @@ public class EmployeeRestController {
 	// in case of POST PK is null/empty
 	@PostMapping("/employees") 															// JACKSON will automatically convert request body from JSON to POJO	
 	public Employee addEmployee(@RequestBody Employee employee) {						// @RequestBody annotation binds that POJO(request body) to a method parameter
+
+		// also just in case they pass an id in JSON ... set id to 0
+		// this is to force a save of new item ... instead of update
+		employee.setId(0);		
 		
 		employeeService.saveEmployee(employee);											// delegate call to service layer
 		
